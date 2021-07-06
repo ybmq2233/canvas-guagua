@@ -15,6 +15,11 @@
             left: 30%;
         }
 
+        /* 解决在刮的过程中刮出去了会出现图片变蓝的现象 */
+        img::selection {
+            color: red;
+        }
+
         canvas {
             width: 600px;
             height: 600px;
@@ -62,6 +67,9 @@
             ctx.clearRect(x, y, 30, 30);
         })
         cas.addEventListener('mouseup', function () {
+            isClear = false;
+        })
+        cas.addEventListener('mouseover', function() {
             isClear = false;
         })
 
