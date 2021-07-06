@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        img {
+            width: 600px;
+            height: 600px;
+            position: absolute;
+            top: 10%;
+            left: 30%;
+        }
+
+        canvas {
+            width: 600px;
+            height: 600px;
+            position: absolute;
+            top: 10%;
+            left: 30%;
+            border: 1px solid #000;
+        }
+
+        button {
+            position: absolute;
+            bottom: 5%;
+            left: 47%;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <img src="./images/initial.png" alt="">
+        <canvas width="600" height="600"></canvas>
+        <button>重置</button>
+    </div>
+    <script>
+        var cas = document.querySelector('canvas');
+        var img = document.querySelector('img');
+        var ctx = cas.getContext('2d');
+        var btn = document.querySelector('button');
+
+        // 加一个遮罩层
+        ctx.fillStyle = '#ccc';
+        ctx.fillRect(0, 0, cas.width, cas.height);
+        setImgUrl();
+        // 开关
+        var isClear = false;
+        cas.addEventListener('mousedown', function () {
+            isClear = true;
+        })
+        cas.addEventListener('mousemove', function (e) {
+            if (!isClear) {
+                return
+            }
+            var x = e.offsetX;
+            var y = e.offsetY;
+            ctx.clearRect(x, y, 30, 30);
+        })
+        cas.addEventListener('mouseup', function () {
+            isClear = false;
+        })
+
+        // 点击按钮重置图片
+        btn.addEventListener('click', function () {
+            ctx.fillStyle = '#ccc';
+            ctx.fillRect(0, 0, cas.width, cas.height);
+            setImgUrl();
+        })
+
+        function setImgUrl() {
+            var arr = ['./images/1.png', './images/2.png', './images/3.png', './images/4.png'];
+            // 0-3
+            var random = Math.round(Math.random() * 3);
+            img.src = arr[random];
+        }
+    </script>
+</body>
+
+</html>
